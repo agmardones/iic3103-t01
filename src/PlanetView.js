@@ -49,6 +49,47 @@ class PlanetView extends React.Component {
       <div>
         {planet && <Typography variant="h2">{planet.name}</Typography>}
         <Grid direction="row" container spacing={24}>
+          {planet && (
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Paper>
+                <Grid direction="column">
+                  <div>
+                    <Typography>Nombre: {`${planet.name}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Periodo de rotación: {`${planet.rotation_period}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Periodo de órbita: {`${planet.orbital_period}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>Diámetro: {`${planet.diameter}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>Clima: {`${planet.climate}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>Gravedad: {`${planet.gravity}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>Terreno: {`${planet.terrain}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Agua superficial: {`${planet.surface_water}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>Población: {`${planet.population}`}</Typography>
+                  </div>
+                </Grid>
+              </Paper>
+            </Grid>
+          )}
           {planet && residents && (
             <Grid item xs={12} md={6} lg={6}>
               <Paper className={classes.listRoot}>
