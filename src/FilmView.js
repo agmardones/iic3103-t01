@@ -12,6 +12,7 @@ import {
   Grid
 } from "@material-ui/core";
 import SearchBar from "./SeachBar";
+import moment from "moment";
 
 const styles = {
   listRoot: {
@@ -49,11 +50,41 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     const { film, characters, planets, starships } = this.state;
+    const releaseDate = film
+      ? moment(film.release_date)
+          .locale("es")
+          .format("DD[,] MMMM - YYYY")
+      : "";
     return (
       <div>
         <SearchBar />
         {film && <Typography variant="h2">{film.title}</Typography>}
         <Grid direction="row" container spacing={24}>
+          {film && (
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Paper>
+                <Grid direction="column">
+                  <div>
+                    <Typography>
+                      {" "}
+                      Número episodio: {`${film.episode_id}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography> Director: {`${film.director}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography> Productor: {`${film.producer}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Fecha de lanzamiento: {`${releaseDate}`}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Paper>
+            </Grid>
+          )}
           {film && characters && (
             <Grid item xs={12} md={6} lg={6}>
               <Paper className={classes.listRoot}>

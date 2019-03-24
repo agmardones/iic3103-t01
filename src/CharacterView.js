@@ -49,6 +49,49 @@ class CharacterView extends React.Component {
       <div>
         {character && <Typography variant="h2">{character.name}</Typography>}
         <Grid direction="row" container spacing={24}>
+          {character && (
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Paper>
+                <Grid direction="column">
+                  <div>
+                    <Typography>Nombre: {`${character.name}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography> Altura: {`${character.height}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography> Peso: {`${character.mass}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Color de pelo: {`${character.hair_color}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Color de piel: {`${character.skin_color}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Color de ojos: {`${character.eye_color}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Año nacimiento: {`${character.birth_year}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Género:{" "}
+                      {character.gender === "male" ? "Masculino" : "Femenino"}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Paper>
+            </Grid>
+          )}
           {character && films && (
             <Grid item xs={12} md={6} lg={6}>
               <Paper className={classes.listRoot}>
