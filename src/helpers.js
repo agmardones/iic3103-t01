@@ -55,6 +55,24 @@ export const getPlanetInfo = async planetId => {
   };
 };
 
+export const getCharacterInfo = async characterId => {
+  const rawCharacter = await fetch(
+    `https://swapi.co/api/people/${characterId}`
+  );
+  const character = await rawCharacter.json();
+  const filmsInfo = await fetchEntities(character.films);
+  const films = filmsInfo.map(film => getEntityInfo(film, "films"));
+  const starshipsInfo = await fetchEntities(character.starships);
+  const starships = starshipsInfo.map(starship =>
+    getEntityInfo(starship, "starships")
+  );
+  return {
+    character,
+    films,
+    starships
+  };
+};
+
 export const getFilmInfo = async filmId => {
   const rawFilm = await fetch(`https://swapi.co/api/films/${filmId}`);
   const film = await rawFilm.json();
