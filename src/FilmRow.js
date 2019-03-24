@@ -49,7 +49,6 @@ class FilmRow extends React.Component {
 
   render() {
     const { filmInfo, classes } = this.props;
-    console.log(filmInfo);
     const {
       title,
       episodeId,

@@ -11,6 +11,7 @@ import {
   Paper,
   Grid
 } from "@material-ui/core";
+import SearchBar from "./SeachBar";
 
 const styles = {
   listRoot: {
@@ -29,6 +30,13 @@ class App extends React.Component {
       planets: [],
       starships: []
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(urlString) {
+    return e => {
+      this.props.history.push(urlString);
+    };
   }
 
   componentWillMount() {
@@ -43,6 +51,7 @@ class App extends React.Component {
     const { film, characters, planets, starships } = this.state;
     return (
       <div>
+        <SearchBar />
         {film && <Typography variant="h2">{film.title}</Typography>}
         <Grid direction="row" container spacing={24}>
           {film && characters && (
@@ -56,8 +65,12 @@ class App extends React.Component {
                   }
                 >
                   {characters.map((char, idx) => (
-                    <ListItem key={idx}>
-                      <ListItemText primary={`${char}`} />
+                    <ListItem
+                      key={idx}
+                      button
+                      onClick={this.handleClick(char.url)}
+                    >
+                      <ListItemText primary={`${char.name}`} />
                     </ListItem>
                   ))}
                 </List>
@@ -75,8 +88,12 @@ class App extends React.Component {
                   }
                 >
                   {planets.map((planet, idx) => (
-                    <ListItem key={idx}>
-                      <ListItemText primary={`${planet}`} />
+                    <ListItem
+                      key={idx}
+                      button
+                      onClick={this.handleClick(planet.url)}
+                    >
+                      <ListItemText primary={`${planet.name}`} />
                     </ListItem>
                   ))}
                 </List>
@@ -94,8 +111,12 @@ class App extends React.Component {
                   }
                 >
                   {starships.map((starship, idx) => (
-                    <ListItem key={idx}>
-                      <ListItemText primary={`${starship}`} />
+                    <ListItem
+                      button
+                      onClick={this.handleClick(starship.url)}
+                      key={idx}
+                    >
+                      <ListItemText primary={`${starship.name}`} />
                     </ListItem>
                   ))}
                 </List>

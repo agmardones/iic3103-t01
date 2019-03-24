@@ -8,6 +8,12 @@ const fetchEntities = async entitiesArray => {
   return parsedEntity;
 };
 
+const getEntityInfo = (entity, type) => {
+  const name = type === "films" ? entity.title : entity.name;
+  const urlSplit = entity.url.split("/");
+  return { name, url: `/${type}/${urlSplit[urlSplit.length - 2]}` };
+};
+
 export const getAllFilms = async () => {
   const rawFilms = await fetch("https://swapi.co/api/films");
   const films = await rawFilms.json();
@@ -33,14 +39,34 @@ export const getAllFilms = async () => {
   });
 };
 
+export const getPlanetInfo = async planetId => {
+  const rawPlanet = await fetch(`https://swapi.co/api/planets/${planetId}`);
+  const planet = await rawPlanet.json();
+  const residentsInfo = await fetchEntities(planet.residents);
+  const residents = residentsInfo.map(resident =>
+    getEntityInfo(resident, "characters")
+  );
+  const filmsInfo = await fetchEntities(planet.films);
+  const films = filmsInfo.map(film => getEntityInfo(film, "films"));
+  return {
+    planet,
+    residents,
+    films
+  };
+};
+
 export const getFilmInfo = async filmId => {
   const rawFilm = await fetch(`https://swapi.co/api/films/${filmId}`);
   const film = await rawFilm.json();
   const charactersInfo = await fetchEntities(film.characters);
   const planetsInfo = await fetchEntities(film.planets);
   const starshipsInfo = await fetchEntities(film.starships);
-  const characters = charactersInfo.map(char => char.name);
-  const planets = planetsInfo.map(planet => planet.name);
-  const starships = starshipsInfo.map(starship => starship.name);
+  const characters = charactersInfo.map(char =>
+    getEntityInfo(char, "characters")
+  );
+  const planets = planetsInfo.map(planet => getEntityInfo(planet, "planets"));
+  const starships = starshipsInfo.map(starship =>
+    getEntityInfo(starship, "starships")
+  );
   return { film, characters, planets, starships };
 };
