@@ -63,7 +63,7 @@ class App extends React.Component {
           {film && (
             <Grid item xs={12} style={{ marginTop: 30 }}>
               <Paper>
-                <Grid direction="column">
+                <Grid container direction="column">
                   <div>
                     <Typography>
                       {" "}

@@ -52,7 +52,7 @@ class PlanetView extends React.Component {
           {planet && (
             <Grid item xs={12} style={{ marginTop: 30 }}>
               <Paper>
-                <Grid direction="column">
+                <Grid container direction="column">
                   <div>
                     <Typography>Nombre: {`${planet.name}`}</Typography>
                   </div>

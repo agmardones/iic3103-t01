@@ -26,6 +26,7 @@ class CharacterView extends React.Component {
     super(props);
     this.state = {
       films: [],
+      pilots: [],
       starship: null
     };
     this.handleClick = this.handleClick.bind(this);
@@ -43,11 +44,76 @@ class CharacterView extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { films, starship } = this.state;
+    const { films, starship, pilots } = this.state;
     return (
       <div>
         {starship && <Typography variant="h2">{starship.name}</Typography>}
         <Grid direction="row" container spacing={24}>
+          {starship && (
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Paper>
+                <Grid container direction="column">
+                  <div>
+                    <Typography>Nombre: {`${starship.name}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography> Modelo: {`${starship.model}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      {" "}
+                      Manufacturador: {`${starship.manufacturer}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Costo en créditos: {`${starship.cost_in_credits}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>Largo: {`${starship.length}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Máxima velocidad en atmósfera:{" "}
+                      {`${starship.max_atmosphering_speed}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>Crew: {`${starship.crew}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Pasajeros: {`${starship.passengers}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Capacidad de cargo: {`${starship.cargo_capacity}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Consumibes: {`${starship.consumables}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Hyperdrive rating: {`${starship.hyperdrive_rating}`}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>MGLT: {`${starship.MGLT}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Clase: {`${starship.starship_class}`}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Paper>
+            </Grid>
+          )}
           {starship && films && (
             <Grid item xs={12} md={6} lg={6}>
               <Paper className={classes.listRoot}>
@@ -65,6 +131,29 @@ class CharacterView extends React.Component {
                       onClick={this.handleClick(film.url)}
                     >
                       <ListItemText primary={`${film.name}`} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
+            </Grid>
+          )}
+          {starship && pilots && (
+            <Grid item xs={12} md={6} lg={6}>
+              <Paper className={classes.listRoot}>
+                <List
+                  subheader={
+                    <ListSubheader disableSticky={true} component="div">
+                      Pilotos
+                    </ListSubheader>
+                  }
+                >
+                  {pilots.map((pilot, idx) => (
+                    <ListItem
+                      key={idx}
+                      button
+                      onClick={this.handleClick(pilot.url)}
+                    >
+                      <ListItemText primary={`${pilot.name}`} />
                     </ListItem>
                   ))}
                 </List>

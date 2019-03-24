@@ -62,9 +62,12 @@ export const getStarshipInfo = async starshipId => {
   const starship = await rawStarship.json();
   const filmsInfo = await fetchEntities(starship.films);
   const films = filmsInfo.map(film => getEntityInfo(film, "films"));
+  const pilotsInfo = await fetchEntities(starship.pilots);
+  const pilots = pilotsInfo.map(pilot => getEntityInfo(pilot, "characters"));
   return {
     starship,
-    films
+    films,
+    pilots
   };
 };
 
