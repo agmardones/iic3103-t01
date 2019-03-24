@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import { Typography, withStyles } from "@material-ui/core";
 import { getAllFilms } from "./helpers";
 import FilmRowComponent from "./FilmRow";
+import SearchBar from "./SeachBar";
+
 const styles = {
   root: {
     width: "100%"
@@ -26,6 +28,7 @@ class App extends React.Component {
     const { films } = this.state;
     return (
       <div className={classes.root}>
+        <SearchBar />
         <Typography variant="h2"> Películas </Typography>
         {films.map((film, idx) => (
           <FilmRowComponent key={idx} filmInfo={film} />

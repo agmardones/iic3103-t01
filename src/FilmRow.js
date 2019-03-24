@@ -30,7 +30,11 @@ const styles = {
   },
   button: {
     width: "10%",
-    backgroundColor: "blue",
+    backgroundColor: "black",
+    color: "white",
+    "&:hover": {
+      color: "black"
+    },
     marginTop: "20px"
   }
 };

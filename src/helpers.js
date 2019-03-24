@@ -82,10 +82,13 @@ export const getCharacterInfo = async characterId => {
   const starships = starshipsInfo.map(starship =>
     getEntityInfo(starship, "starships")
   );
+  const homeWorldInfo = await fetch(character.homeworld);
+  const homeWorld = await homeWorldInfo.json();
   return {
     character,
     films,
-    starships
+    starships,
+    homeWorld: homeWorld.name
   };
 };
 

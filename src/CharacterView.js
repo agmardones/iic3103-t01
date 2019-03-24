@@ -27,7 +27,8 @@ class CharacterView extends React.Component {
     this.state = {
       starships: [],
       films: [],
-      character: null
+      character: null,
+      homeWorld: ""
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -44,7 +45,7 @@ class CharacterView extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { films, starships, character } = this.state;
+    const { films, starships, character, homeWorld } = this.state;
     return (
       <div>
         {character && <Typography variant="h2">{character.name}</Typography>}
@@ -86,6 +87,11 @@ class CharacterView extends React.Component {
                     <Typography>
                       Género:{" "}
                       {character.gender === "male" ? "Masculino" : "Femenino"}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography>
+                      Planeta de residencia: {`${homeWorld}`}
                     </Typography>
                   </div>
                 </Grid>
