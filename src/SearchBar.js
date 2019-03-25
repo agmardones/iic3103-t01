@@ -86,7 +86,6 @@ class SearchBar extends React.Component {
       filteredStarships,
       filteredPlanets
     } = this.state;
-    console.log(filteredFilms);
     return (
       <div className={classes.resul}>
         <TextField
