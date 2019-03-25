@@ -4,10 +4,13 @@ import {
   withStyles,
   Paper,
   Button,
-  Typography
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-
+import { getSearchBarInfo } from "./helpers";
 const styles = {
   results: {
     width: "100%"
@@ -26,10 +29,25 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showingResults: false
+      showingResults: false,
+      films: [],
+      starships: [],
+      planets: [],
+      characters: [],
+      filteredData: []
     };
     this.handleEnter = this.handleEnter.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClick(urlString) {
+    return e => {
+      this.props.history.push(urlString);
+    };
+  }
+
+  componentWillMount() {
+    getSearchBarInfo().then(results => this.setState({ ...results }));
   }
 
   handleEnter(event) {
@@ -41,9 +59,10 @@ class SearchBar extends React.Component {
   handleClose() {
     this.setState({ showingResults: false });
   }
+
   render() {
     const { classes } = this.props;
-    const { showingResults } = this.state;
+    const { showingResults, filteredData } = this.state;
     return (
       <div className={classes.resul}>
         <TextField
@@ -60,7 +79,23 @@ class SearchBar extends React.Component {
         />
         {showingResults && (
           <Paper>
-            <Typography>Resultados de tu búsqueda:</Typography>
+            <List
+              subheader={
+                <ListSubheader disableSticky={true} component="div">
+                  Resultados
+                </ListSubheader>
+              }
+            >
+              {filteredData.map((entity, idx) => (
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={this.handleClick(entity.url)}
+                >
+                  <ListItemText primary={`${entity.name}`} />
+                </ListItem>
+              ))}
+            </List>
             <Button onClick={this.handleClose} className={classes.button}>
               {" "}
               Cerrar{" "}
