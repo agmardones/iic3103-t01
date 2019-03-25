@@ -11,6 +11,7 @@ import {
   Paper,
   Grid
 } from "@material-ui/core";
+import SearchBar from "./SearchBar";
 
 const styles = {
   listRoot: {
@@ -47,6 +48,7 @@ class CharacterView extends React.Component {
     const { films, starship, pilots } = this.state;
     return (
       <div>
+        <SearchBar />
         {starship && <Typography variant="h2">{starship.name}</Typography>}
         <Grid direction="row" container spacing={24}>
           {starship && (

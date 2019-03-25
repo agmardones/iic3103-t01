@@ -11,7 +11,7 @@ import {
   Paper,
   Grid
 } from "@material-ui/core";
-import SearchBar from "./SeachBar";
+import SearchBar from "./SearchBar";
 import moment from "moment";
 
 const styles = {

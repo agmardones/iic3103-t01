@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Typography, withStyles } from "@material-ui/core";
 import { getAllFilms } from "./helpers";
 import FilmRowComponent from "./FilmRow";
-import SearchBar from "./SeachBar";
+import SearchBar from "./SearchBar";
 
 const styles = {
   root: {

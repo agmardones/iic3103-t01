@@ -18,6 +18,11 @@ const getEntityInfo = (entity, type) => {
   return { name, url: getUrlString(entity.url, type) };
 };
 
+export const filterData = (data, value) => {
+  const filteredData = data.filter(e => e.name.toLowerCase().includes(value));
+  return filteredData;
+};
+
 export const getSearchBarInfo = async () => {
   const rawFilms = await fetch("https://swapi.co/api/films");
   const rawPlanets = await fetch("https://swapi.co/api/planets");
