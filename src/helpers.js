@@ -22,27 +22,33 @@ export const filterData = (data, value) => {
   const filteredData = data.filter(e => e.name.toLowerCase().includes(value));
   return filteredData;
 };
+export const fetchEntitiesIndex = async entity => {
+  let data = [];
+  let raw = await fetch(`https://swapi.co/api/${entity}`);
+  let rawJson = await raw.json();
+  let initial = rawJson;
+  data = data.concat(initial.results);
+  while (initial.next) {
+    raw = await fetch(initial.next);
+    rawJson = await raw.json();
+    initial = rawJson;
+    data = data.concat(initial.results);
+  }
+  return data;
+};
 
 export const getSearchBarInfo = async () => {
-  const rawFilms = await fetch("https://swapi.co/api/films");
-  const rawPlanets = await fetch("https://swapi.co/api/planets");
-  const rawStarships = await fetch("https://swapi.co/api/starships");
-  const rawCharacters = await fetch("https://swapi.co/api/people");
-  const parsedFilms = await rawFilms.json();
-  const parsedPlanets = await rawPlanets.json();
-  const parsedStarships = await rawStarships.json();
-  const parsedCharacters = await rawCharacters.json();
+  const parsedFilms = await fetchEntitiesIndex("films");
+  const parsedPlanets = await fetchEntitiesIndex("planets");
+  const parsedStarships = await fetchEntitiesIndex("starships");
+  const parsedCharacters = await fetchEntitiesIndex("people");
   return {
-    films: parsedFilms.results.map(film => getEntityInfo(film, "films")),
-    planets: parsedPlanets.results.map(planet =>
-      getEntityInfo(planet, "planets")
-    ),
-    starships: parsedStarships.results.map(starship =>
+    films: parsedFilms.map(film => getEntityInfo(film, "films")),
+    planets: parsedPlanets.map(planet => getEntityInfo(planet, "planets")),
+    starships: parsedStarships.map(starship =>
       getEntityInfo(starship, "starships")
     ),
-    characters: parsedCharacters.results.map(char =>
-      getEntityInfo(char, "characters")
-    )
+    characters: parsedCharacters.map(char => getEntityInfo(char, "characters"))
   };
 };
 export const getAllFilms = async () => {

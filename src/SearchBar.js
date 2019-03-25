@@ -36,10 +36,10 @@ class SearchBar extends React.Component {
       starships: [],
       planets: [],
       characters: [],
-      filteredFilms: [],
-      filteredStarships: [],
-      filteredPlanets: [],
-      filteredCharacters: []
+      filteredFilms: null,
+      filteredStarships: null,
+      filteredPlanets: null,
+      filteredCharacters: null
     };
     this.handleEnter = this.handleEnter.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -84,15 +84,20 @@ class SearchBar extends React.Component {
       filteredFilms,
       filteredCharacters,
       filteredStarships,
-      filteredPlanets
+      filteredPlanets,
+      films
     } = this.state;
+    const isEnabled = Boolean(films.length !== 0);
     return (
       <div className={classes.resul}>
         <TextField
+          disabled={!isEnabled}
           onKeyPress={this.handleEnter}
           type="search"
           style={{ marginRight: 30 }}
-          placeholder="Búsqueda"
+          placeholder={
+            isEnabled ? "Búsqueda" : "Cargando datos para búsqueda..."
+          }
           fullWidth
           margin="normal"
           variant="outlined"
@@ -100,90 +105,86 @@ class SearchBar extends React.Component {
             shrink: true
           }}
         />
-        {showingResults &&
-          (filteredCharacters ||
-            filteredFilms ||
-            filteredPlanets ||
-            filteredStarships) && (
-            <Paper>
-              <Typography style={{ margin: 10 }}> Resultados </Typography>
-              <List
-                subheader={
-                  <ListSubheader disableSticky={true} component="div">
-                    Películas
-                  </ListSubheader>
-                }
-              >
-                {filteredFilms.map((entity, idx) => (
-                  <ListItem
-                    key={idx}
-                    button
-                    onClick={this.handleClick(entity.url)}
-                  >
-                    <ListItemText primary={`${entity.name}`} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List
-                subheader={
-                  <ListSubheader disableSticky={true} component="div">
-                    Personajes
-                  </ListSubheader>
-                }
-              >
-                {filteredCharacters.map((entity, idx) => (
-                  <ListItem
-                    key={idx}
-                    button
-                    onClick={this.handleClick(entity.url)}
-                  >
-                    <ListItemText primary={`${entity.name}`} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List
-                subheader={
-                  <ListSubheader disableSticky={true} component="div">
-                    Naves
-                  </ListSubheader>
-                }
-              >
-                {filteredStarships.map((entity, idx) => (
-                  <ListItem
-                    key={idx}
-                    button
-                    onClick={this.handleClick(entity.url)}
-                  >
-                    <ListItemText primary={`${entity.name}`} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List
-                subheader={
-                  <ListSubheader disableSticky={true} component="div">
-                    Planetas
-                  </ListSubheader>
-                }
-              >
-                {filteredPlanets.map((entity, idx) => (
-                  <ListItem
-                    key={idx}
-                    button
-                    onClick={this.handleClick(entity.url)}
-                  >
-                    <ListItemText primary={`${entity.name}`} />
-                  </ListItem>
-                ))}
-              </List>
-              <Button onClick={this.handleClose} className={classes.button}>
-                {" "}
-                Cerrar{" "}
-              </Button>
-            </Paper>
-          )}
+        {showingResults && films && (
+          <Paper>
+            <Typography style={{ margin: 10 }}> Resultados </Typography>
+            <List
+              subheader={
+                <ListSubheader disableSticky={true} component="div">
+                  Películas
+                </ListSubheader>
+              }
+            >
+              {filteredFilms.map((entity, idx) => (
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={this.handleClick(entity.url)}
+                >
+                  <ListItemText primary={`${entity.name}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List
+              subheader={
+                <ListSubheader disableSticky={true} component="div">
+                  Personajes
+                </ListSubheader>
+              }
+            >
+              {filteredCharacters.map((entity, idx) => (
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={this.handleClick(entity.url)}
+                >
+                  <ListItemText primary={`${entity.name}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List
+              subheader={
+                <ListSubheader disableSticky={true} component="div">
+                  Naves
+                </ListSubheader>
+              }
+            >
+              {filteredStarships.map((entity, idx) => (
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={this.handleClick(entity.url)}
+                >
+                  <ListItemText primary={`${entity.name}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List
+              subheader={
+                <ListSubheader disableSticky={true} component="div">
+                  Planetas
+                </ListSubheader>
+              }
+            >
+              {filteredPlanets.map((entity, idx) => (
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={this.handleClick(entity.url)}
+                >
+                  <ListItemText primary={`${entity.name}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Button onClick={this.handleClose} className={classes.button}>
+              {" "}
+              Cerrar{" "}
+            </Button>
+          </Paper>
+        )}
       </div>
     );
   }
